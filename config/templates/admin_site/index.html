@@ -1,0 +1,93 @@
+{% extends "admin/index.html" %}
+
+{% block sidebar %}
+    {{block.super}}
+    <div id="task_graph" style="height: 400px;">
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.15.0/vis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+    <scrtip src="https://cdnjs.cloudflare.com/ajax/libs/jquery-json/2.5.1/jquery.json.min.js"></scrtip>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.15.0/vis.min.css"/>
+
+    <script>
+        function draw_task_graph(element_id, tasks) {
+            // Tasks graph
+            nodes = [];
+            edges = [];
+
+            node_ids = [];
+            edges_ids = [];
+
+            // Create list of nodes
+            for (i = 0; i < tasks.length; i++) {
+                color = '#33ff66';
+                if (tasks[i].state == 'failed')
+                    color = '#ff6633';
+                if (tasks[i].state == 'ok')
+                    color = '#aaa';
+                if (tasks[i].state == 'canceled')
+                    color = '#555';
+                if (tasks[i].state == 'waiting')
+                    color = '#66ff33';
+
+                nodes.push({
+                    id: tasks[i].id,
+                    label: tasks[i].type + ':' + tasks[i].action + '\n' + tasks[i].id,
+                    x: Math.random()*4,
+                    y: i/4,
+                    shape: 'box',
+                    color: color,
+                });
+                node_ids.push(tasks[i].id);
+            }
+
+            // Create list of connections
+            for (i = 0; i < tasks.length; i++) {
+                console.log(tasks[i]);
+                for (e = 0; e < tasks[i].blockers.length; e++) {
+                    blocker_id = tasks[i].blockers[e].split(":")[2];
+                    edge_id = 'edge-' + tasks[i].id + '-' + blocker_id;
+                    if (node_ids.indexOf(blocker_id) >= 0 && edges_ids.indexOf(edge_id) < 0) {
+                        edges.push({
+                            from: tasks[i].id,
+                            to: blocker_id,
+                            arrows: 'from',
+                            length: 300,
+                            physics: 0,
+                        });
+                        edges_ids.push(edge_id);
+                    }
+                }
+            }
+
+            var nodes = new vis.DataSet(nodes);
+            var edges = new vis.DataSet(edges);
+            var container = document.getElementById(element_id);
+            var data = {
+                nodes: nodes,
+                edges: edges
+            };
+            var options = {
+                "edges": {
+                    "smooth": {
+                        "type": "continuous",
+                        "forceDirection": "none",
+                        "roundness": 0.2
+                    }
+                }
+            };
+            var network = new vis.Network(container, data, options);
+        }
+        $.ajax({
+            type: "GET",
+            url: 'tasks/graph/',
+            complete: function(xhr, status) {
+                tasks = $.parseJSON(xhr.responseText);
+                console.debug(xhr);
+                draw_task_graph('task_graph', tasks);
+            },
+            dataType: "application/json"
+        });
+    </script>
+{% endblock %}

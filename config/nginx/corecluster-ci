@@ -1,0 +1,9 @@
+server {
+    listen 8001;
+    server_name 0.0.0.0;
+
+    location / {
+        include         uwsgi_params;
+        uwsgi_pass      unix:/var/run/uwsgi/app/corecluster-ci/socket;
+    }
+}

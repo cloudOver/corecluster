@@ -1,0 +1,7 @@
+<pool type="sheepdog">
+    <name>images</name>
+    <source>
+        <name>images</name>
+        <host name='127.0.0.1' port='7000'/>
+    </source>
+</pool>

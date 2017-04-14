@@ -1,0 +1,5 @@
+Some of files in this project are licensed under Apache 2.0 license. This pertain especially files forked from CC1-cloud
+repository. All these files have header with with specified license, copyright and authors. You can find original copy of
+these files in cc1-cloud repository (commits before 01.06.2014), available at https://github.com/cc1-cloud.
+
+All other files, not delivered from CC1-cloud are licensed under GPLv3. This should be specified in header of each file.

@@ -1,0 +1,15 @@
+<network>
+  <name>{{ lease.vm_ifname }}</name>
+  <forward mode='route'/>
+  {% if lease.user_network.is_isolated %}
+    <filterref filter='filter-{{ vm.id }}-{{ lease.id }}'/>
+  {% endif %}
+  <domain name="{{ lease.domain_name }}" />
+  <bridge name='{{ lease.vm_ifname }}' stp='on' delay='0' />
+  <ip address='{{ lease.gateway_address }}' netmask='255.255.255.252'>
+    <dhcp>
+      <host mac='{{ lease.mac }}' name='{{ lease.hostname }}' ip='{{ lease.vm_address }}' />
+      <range start='{{ lease.gateway_address }}' end='{{ lease.gateway_address }}' />
+    </dhcp>
+  </ip>
+</network>

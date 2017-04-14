@@ -1,0 +1,112 @@
+######################################
+# Basic setup                        #
+######################################
+
+# Should be only UI(s) host(s)
+ALLOWED_HOSTS = ['*']
+
+DATABASES = {
+    'logs': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '/var/lib/cloudOver/logs.sqlite3',
+    },
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '/var/lib/cloudOver/corecluster.sqlite3',
+    },
+# Uncoment to set Mysql. Requires python-mysqldb package
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'cloudover_db',
+#        'USER': 'cloudover',
+#        'PASSWORD': 'my_secret_password',
+#        'HOST': 'localhost',
+#        'PORT': '3306',
+#        'OPTIONS': {
+#            "init_command": "SET NAMES utf8",
+#        }
+#    },
+}
+
+CACHE_URL = 'localhost'
+
+# DNS domain name
+DNS_DOMAIN = 'localdomain'
+
+# Public IP address used for VNC redirections (usually the same as core's IP)
+VNC_ADDRESS = '127.0.0.1'
+VNC_PORTS = {
+    'START': 5900,
+    'EXCLUDE': []
+}
+
+# Automaticaly add new nodes to cloud. Should be DISABLED in production environments!
+AUTOREGISTER_NODE = True
+
+
+######################################
+# User accounts                      #
+######################################
+
+# Default user quota for new users. Values are in bytes
+USER_QUOTA = {
+    'cpu': 20,
+    'memory': 40000,                # in MB
+    'storage': 40000*1024*1024,     # in bytes
+    'redirections': 1,              # Public IP redirections
+    'points': 2000,
+    'public_lease': 2,
+    'routed_lease': 24,
+    'network_isolated': 5
+}
+
+# Add permissions to all API functions when creating new role "default_role". Permissions for this group could be
+# changed in admin panel
+ENABLE_ALL_PERMISSIONS = True
+
+# Create additional default groups: read-only, storage and vm access. Should be disabled in production environments
+CREATE_ADDITIONAL_ROLES = True
+
+# Check is possible to perform operations in several states for entites (e.g. attach disk in init state). If false, then
+# check should be done in agent, what could result fail
+CHECK_STATES = False
+
+
+######################################
+# Advanced options                   #
+######################################
+
+# Maximum size of data chunk, which clould be uploaded through function
+# api.image.upload_data, in bytes
+MAX_UPLOAD_CHUNK_SIZE = 1024*1024*10
+
+# Default time for node suspend in seconds (must be more than 60)
+NODE_SUSPEND_DURATION = 60 * 60 * 24
+
+# Node wakeup time from suspend in seconds. This ammount of time is added to sleep before next suspend is done. If this
+# time is too short, next suspend will fail due to connection timeout.
+NODE_WAKEUP_TIME = 30
+
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = 'OC_SECRET_KEY'
+
+# Calculate statistics for API calls
+API_STATS = False
+
+INSTALLATION_ID = 'RANDOM_INSTALLATION_ID'
+
+
+######################################
+# Extensions                         #
+######################################
+APPS = [
+    'corecluster.app',
+    'corecluster-auth-db.app',
+    'corecluster-algorithm-storage-default.app',
+    'corecluster-algorithm-node-default.app',
+    'corecluster-algorithm-id-uuid.app',
+    'corecluster-storage-libvirt.app',
+    'corenetwork.app',
+]
+
+LOG_PREFIX = 'co_'

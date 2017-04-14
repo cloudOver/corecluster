@@ -1,0 +1,20 @@
+{% if vm.base_image.storage.transport == "sheepdog" %}
+<disk type='network'>
+    <source protocol="sheepdog" name="{{ vm.id }}">
+        <host name="127.0.0.1" port="7000"/>
+    </source>
+    <target dev='sda' bus='{{ vm.base_image.disk_controller }}'/>
+</disk>
+{% elif vm.base_image.storage.transport == "ssh" %}
+<disk type='file' device='disk'>
+    <driver name='qemu' type='{{ vm.base_image.format }}' cache="writeback" io="threads" />
+    <source file='/images/{{ vm.id }}'/>
+    <target dev='sda' bus='{{ vm.base_image.disk_controller }}'/>
+</disk>
+{% else %}
+<disk type='volume' device='disk'>
+    <driver name='qemu' type='{{ vm.base_image.format }}' cache="writeback" io="threads" />
+    <source pool='images' volume='{{ vm.id }}'/>
+    <target dev='sda' bus='{{ vm.base_image.disk_controller }}'/>
+</disk>
+{% endif %}

@@ -1,0 +1,17 @@
+<!--
+Use remote, NFS storage
+-->
+<pool type="netfs">
+  <name>{{ storage.name }}</name>
+  <source>
+    <host name="{{ storage.address }}"/>
+    <dir path="{{ storage.dir }}"/>
+    <format type='nfs'/>
+  </source>
+  <target>
+    <path>/var/lib/cloudOver/storages/{{ storage.name }}/</path>
+    <permissions>
+    	<mode>0770</mode>
+    </permissions>
+  </target>
+</pool>

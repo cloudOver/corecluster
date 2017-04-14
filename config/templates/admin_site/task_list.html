@@ -1,0 +1,65 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_modify admin_static %}
+{% block extrahead %}{{ block.super }}
+{% endblock %}
+{% block extrastyle %}{{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}{% if not is_popup %}
+<div class="breadcrumbs">
+     <a href="/admin">{% trans "Home" %}</a> ›
+     <a href="/admin/corecluster">CoreCluster</a> ›
+     {% trans 'Tasks' %}</div>
+{% endif %}{% endblock %}
+
+{% block content %}
+    <h1>Task list</h1>
+    <div class="content-main">
+        <table id="result_list">
+        <thead>
+            <tr>
+                <th scope="col" class="column-cidr">
+                    <div class="text"><span>ID</span></div>
+                    <div class="clear"></div>
+                </th>
+                <th scope="col" class="column-cidr">
+                    <div class="text"><span>Type</span></div>
+                    <div class="clear"></div>
+                </th>
+                <th scope="col" class="column-subnets">
+                    <div class="text"><span>Action</span></div>
+                    <div class="clear"></div>
+                </th>
+                <th scope="col" class="sortable column-mode">
+                    <div class="text"><a href="?o=2">State</a></div>
+                    <div class="clear"></div>
+                </th>
+                <th scope="col" class="sortable column-mode">
+                    <div class="text"><a href="?o=2">Comment</a></div>
+                    <div class="clear"></div>
+                </th>
+                <th scope="col" class="sortable column-mode">
+                    <div class="text"><a href="?o=2">Blockers</a></div>
+                    <div class="clear"></div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr class="row1">
+                <th class="field-cidr">{{ task.id }}</th>
+                <td class="field-cidr">{{ task.type }}</td>
+                <td class="field-subnets">{{ task.action }}</td>
+                <td class="field-subnets">{{ task.state }}</td>
+                <td class="field-subnets">{{ task.comment }}</td>
+                <td class="field-mode">
+                    {% for blocker in task.blockers %}
+                        {{ blocker }},
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+{% endblock %}

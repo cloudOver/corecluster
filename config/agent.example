@@ -1,0 +1,41 @@
+######################################
+# Agents and extensions              #
+######################################
+
+# User and group, which run CoreCluster agent threads
+WORKER_USER = 'cloudover'
+WORKER_GROUP = 'cloudover'
+
+# AGENTs list was moved to app.py file.
+
+######################################
+# Agent specific options             #
+######################################
+
+# Should CoreCluster remount all storages at Core and nodes. If there are more machines in cloud, which are
+# running agents, then only one of them should have enabled this option
+MOUNT_NODES = True
+
+
+# Remove all entries from task queue on each start or restart of CoreCluster. It should be disabled in multi-host
+# installations.
+CLEANUP_QUEUES_ON_START = True
+
+# Remove tasks on task finish. Prevents growing up task table. Set this variable to False to collect debugging and
+# performance data. Keeping old tasks shows the history of cluster usage and could be used by accounting.
+REMOVE_TASKS_ON_DONE = True
+
+# Remove agent instances from databases on agent exit. Set this variable to False to collect some debugging
+# and performance data
+REMOVE_AGENTS_ON_DONE = True
+
+# Time before next chunk of tasks is fetched after agent finish all task or waits for new tasks. In seconds. This is
+# also interval used to check task state in api/task/wait/ function.
+TASK_FETCH_INTERVAL = 5
+
+# Define what tasks could be skipped in queue. By default this are ok and canceled tasks. Comment-out failed state to
+# lock task queues on fails. This may decrease cloud performance and availability.
+IGNORE_TASKS = ['ok',
+                'canceled',
+                'failed',
+]

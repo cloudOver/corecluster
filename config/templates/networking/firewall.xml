@@ -1,0 +1,15 @@
+<filter name='{{ lease.vm_ifname }}' chain='ipv4'>
+  <rule action='accept' direction='in' priority='500'>
+    <ip match='yes' srcipaddr='{{ lease.user_network.address }}' srcipmask='{{ lease.user_network.mask }}'/>
+  </rule>
+  <rule action='accept' direction='in' priority='500'>
+    <tcp match='yes' state="ESTABLISHED,RELATED"/>
+  </rule>
+  <!--
+  <rule action='accept' direction='out' priority='500'>
+    <ip match='yes' dstipaddr='{{ lease.user_network.address }}' dstipmask='{{ lease.user_network.mask }}'/>
+  </rule>-->
+  <rule action='drop' direction='in' priority='501'>
+    <ip match='no' srcipaddr='{{ lease.user_network.address }}' srcipmask='{{ lease.user_network.mask }}'/>
+  </rule>
+</filter>

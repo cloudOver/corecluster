@@ -1,0 +1,14 @@
+[Unit]
+Description=CoreCluster cloud
+After=network.target
+Requires=network.target
+
+[Service]
+Type=simple
+PIDFile=/var/run/corecluster.pid
+ExecStartPre=-/usr/sbin/cc-manage configure
+ExecStart=/usr/sbin/cc-manage agent start
+ExecStop=/usr/sbin/cc-manage agent stop
+
+[Install]
+WantedBy=multi-user.target

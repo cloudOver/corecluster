@@ -1,0 +1,20 @@
+{% if img.storage.transport == "sheepdog" %}
+<disk type='network'>
+    <source protocol="sheepdog" name="{{ img.libvirt_name }}">
+        <host name="127.0.0.1" port="7000"/>
+    </source>
+    <target dev='{{ img.disk_device }}' bus='{{ img.disk_controller }}' />
+</disk>
+{% elif img.storage.transport == "ssh" %}
+<disk type='file' device='disk'>
+    <driver name='qemu' type='{{ img.format }}'/>
+    <source file='/images/permanent-{{ img.id }}'/>
+    <target dev='{{ img.disk_device }}' bus='{{ img.disk_controller }}' />
+</disk>
+{% else %}
+<disk type='volume' device='disk'>
+    <driver name='qemu' type='{{ img.format }}'/>
+    <source pool='{{ img.storage.name }}' volume='{{ img.libvirt_name }}'/>
+    <target dev='{{ img.disk_device }}' bus='{{ img.disk_controller }}' />
+</disk>
+{% endif %}

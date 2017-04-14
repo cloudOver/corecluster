@@ -1,0 +1,45 @@
+<domain type='kvm'>
+  <name>{{ vm.libvirt_name }}</name>
+  <uuid>{{ uuid }}</uuid>
+  <memory unit='MiB'>{{ vm.template.memory }}</memory>
+  <currentMemory unit='MiB'>{{ vm.template.memory }}</currentMemory>
+  <vcpu placement='static'>{{ vm.template.cpu }}</vcpu>
+  <os>
+    <type arch="x86_64" machine="pc-1.1">{{ vm.template.domain_type }}</type>
+    {% if vm.template.kernel != None and vm.template.kernel != '' %}
+        <kernel>{{ vm.template.kernel }}</kernel>
+        <initrd>{{ vm.template.initrd }}</initrd>
+        <cmdline>{{ vm.template.cmdline}}</cmdline>
+    {% endif %}
+    <boot dev='cdrom'/>
+    <boot dev='hd'/>
+  </os>
+  <features>
+       <acpi/>
+       <apic/>
+       <pae/>
+  </features>
+  <clock offset='utc'>
+    <timer name='rtc' tickpolicy='catchup' track='guest'>
+      <catchup threshold='123' slew='120' limit='10000'/>
+    </timer>
+    <timer name='pit' tickpolicy='delay'/>
+  </clock>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>restart</on_crash>
+  <devices>
+    <emulator>/usr/bin/qemu-system-x86_64</emulator>
+    <controller type='virtio-serial' order='0' />
+    <controller type='usb' order='1' />
+    <controller type='sata' order='2' />
+    <controller type='scsi' order='3' />
+
+    <memballoon model='virtio'>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0'/>
+    </memballoon>
+    {% for device in vm.device_set.all %}
+      {{ device.xml|safe }}
+    {% endfor %}
+  </devices>
+</domain>

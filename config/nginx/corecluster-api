@@ -1,0 +1,48 @@
+server {
+    listen 8000;
+    server_name 0.0.0.0;
+
+
+    # WebVNC Redirections
+    location ~* ^/webvnc/([a-zA-Z0-9]+)/$ {
+        set $vm_id $1;
+
+        set_by_lua $webvnc_endpoint
+              'local f = io.popen("sudo cc-manage vm webvnc " .. ngx.arg[1], "r")
+               local s = tostring(f:read("*a"))
+               return s .. "/websockify/"' $vm_id;
+
+        proxy_pass $webvnc_endpoint;
+    }
+
+    # WebProxy Redirections
+    location ~* ^/webproxy/([a-zA-Z0-9]+)/$ {
+        set $vm_id $1;
+
+        set_by_lua $webproxy_endpoint
+              'local f = assert(io.popen("sudo cc-manage vm webproxy " .. ngx.arg[1], "r"))
+               local s = assert(f:read("*a"))
+               return s ' $vm_id;
+
+        proxy_pass $webproxy_endpoint;
+    }
+
+    # Administrators panel
+    location /admin {
+        # allow 127.0.0.1;
+        # deny all;
+        include         uwsgi_params;
+        uwsgi_pass      unix:/var/run/uwsgi/app/corecluster-api/socket;
+    }
+
+    # Static Django files
+    location /static {
+        alias /var/lib/cloudOver/static;
+    }
+
+    # Main API
+    location / {
+        include         uwsgi_params;
+        uwsgi_pass      unix:/var/run/uwsgi/app/corecluster-api/socket;
+    }
+}

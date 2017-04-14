@@ -1,0 +1,205 @@
+corecluster (17.04.01) stable; urgency=low
+
+  * Reset task ignores errors to not cause fails of vm
+
+ -- Marta Nabozny <marta.nabozny@cloudover.io> 02 Apr 2017 10:00:00 +0200
+
+
+corecluster (17.03.10) stable; urgency=low
+
+  * Better usability of admin panel
+  * Fixed issue with NoVNC non-root priviledges
+  * Updated lease.get_unused method
+  * Updated network config generator
+  * Token uses SHA512 hash method
+  * Authentication uses SHA512 instead SHA1. Sha1 is partialy enabled as legacy
+  * Task list in admin panel
+
+ -- Marta Nabozny <marta.nabozny@cloudover.io> 25 Mar 2017 10:00:00 +0200
+
+
+corecluster (17.01) stable; urgency=low
+
+  * Fixed node regustration issue
+
+ -- Marta Nabozny <marta.nabozny@cloudover.io> 09 Jan 2017 10:00:00 +0200
+
+
+corecluster (16.12.22) stable; urgency=low
+
+  * Image resize functions
+  * Image and VM edit should not be overwritten by agent tasks
+  * SSH storage agents moved to separate repository
+  * Fixed agent stopping
+  * Algorithms moved to separate modules
+  * Updated network delete for subnets
+  * Changed cron hours
+  * Changed cleanup procedure for VM
+
+ -- Marta Nabozny <marta.nabozny@cloudover.io> 21 Dec 2016 10:00:00 +0200
+
+corecluster (16.12.22) stable; urgency=low
+
+  * Image resize functions
+  * Image and VM edit should not be overwritten by agent tasks
+  * SSH storage agents moved to separate repository
+  * Fixed agent stopping
+  * Algorithms moved to separate modules
+  * Updated network delete for subnets
+  * Changed cron hours
+  * Changed cleanup procedure for VM
+
+ -- Marta Nabozny <marta.nabozny@cloudover.io> 21 Dec 2016 10:00:00 +0200
+
+
+corecluster (16.12.22) stable; urgency=low
+
+  * Image resize functions
+  * Image and VM edit should not be overwritten by agent tasks
+  * SSH storage agents moved to separate repository
+  * Fixed agent stopping
+  * Algorithms moved to separate modules
+  * Updated network delete for subnets
+  * Changed cron hours
+  * Changed cleanup procedure for VM
+
+ -- Marta Nabozny <marta.nabozny@cloudover.io> 21 Dec 2016 10:00:00 +0200
+
+
+corecluster (16.10.11) stable; urgency=low
+
+  * Sheepdog agents moved to separate repository
+  * Fixed image_create for large sizes
+  * Fixed edit functions
+  * Refactored task blocking mechanism. Now it is faster and based on Redis cache
+
+ -- Marta Nabozny <marta.nabozny@cloudover.io> 26 Oct 2016 10:00:00 +0200
+
+
+corecluster (16.09.20) stable; urgency=low
+
+  * New API method: api/lease/get_unused/
+  * Updated api for redirections
+  * Initial support for websocket redirections by API
+  * Fixed bug related to storage mount
+  * Updated migrations - removed timedeltafiled
+  * Finished websocket support
+  * Support for broadcast tasks
+  * Changed corosync check to libvirt connectivity check
+
+ -- Marta Nabozny <marta.nabozny@cloudover.io> 14 Sep 2016 10:00:00 +0200
+
+
+corecluster (16.06.24) stable; urgency=low
+
+  * Cleaned up config file
+  * Added LOG_PREFIX to config file
+  * Experimental IPv6 support
+  * Updated support for new template settings in Django 1.8
+  * Configuration API
+  * OSPF_TOKEN setting moved from config.py to corenetwork's config.py
+  * Updated behavior of image, node and vm agents
+  * Added support for random generator via libvirt
+  * Fixed network allocation
+  * Fixed task handling in queue - objects should be smaller
+  * Added new auth method for authorizing by token in default auth algorithm. Token could be sent in form: tokenid-hashmethod-salt-tokenhash
+  * Support for systemd
+  * Automatic checks for updates
+  * Removed timedelta field
+
+ -- Marta Nabozny <marta.nabozny@cloudover.io> 13 Jun 2016 10:00:00 +0200
+
+
+corecluster (16.04.08) stable; urgency=low
+
+  * VM cleanup changes state to closing
+  * Updated isolated network bridge configuration - ready for various (dhcp/openvpn) extensions
+  * Updated image upload data API
+  * user.get_seed always returns some text
+  * Duration of user.get_seed can take up to 3 seconds, to get seed
+
+ -- Marta Nabozny <martastrzet@gmail.com> 08 Apr 2016 10:00:00 +0200
+
+
+corecluster (16.03.13) stable; urgency=low
+
+  * New config option to enable API stats
+
+ -- Marta Nabozny <martastrzet@gmail.com> 24 Mar 2016 10:00:00 +0200
+
+
+corecluster (16.03.11) stable; urgency=low
+
+  * Created new universal render function
+  * Moved get and get_list to algorithms directory
+  * Fixed new hook mechanism
+  * Updated license headers
+  * Moved system.call to corenetwork package
+  * Added support for network namespaces to isolated networks
+  * Python egg is packed into debian package
+  * Vnc address is assigned to VM, not to CoreCluster. This will be used in multi-agent env.
+  * Changed behavior of agents vm, image and network: if related object is nor ready, task fails
+  * Fixed storage mount error
+  * Task graph in administrator's panel
+  * Agent stops when is in stopping or done state
+  * vm check action for cli to restore vm from failed state (if present in libvirt)
+  * Websocket vnc is supported
+
+ -- Marta Nabozny <martastrzet@gmail.com> 10 Mar 2016 10:00:00 +0200
+
+
+corecluster (16.01.08) stable; urgency=low
+
+  * Merged stable version
+
+ -- Marta Nabozny <martastrzet@gmail.com> 27 Jan 2016 10:00:00 +0200
+
+
+corecluster (16.01.07) stable; urgency=low
+
+  * Fixed isolated network attach
+
+ -- Marta Nabozny <martastrzet@gmail.com> 26 Jan 2016 10:00:00 +0200
+
+
+corecluster (16.01.06) stable; urgency=low
+
+  * Updated columns in administrator's panel
+  * Refacored task api and some task mechanisms (/api/task/.../ functions)
+  * Refactored Hook mechanisms in Core
+  
+ -- Marta Nabozny <martastrzet@gmail.com> 20 Jan 2016 10:00:00 +0200
+
+
+corecluster (16.01.05) stable; urgency=low
+
+  * Fixed qemu-img upload_url and upload_data actions in image_libvirt agent
+  * Fixed image_libvirt attach action
+  * Fixed node_libvirt remove action
+
+ -- Marta Nabozny <martastrzet@gmail.com> 01 Jan 2016 10:00:00 +0200
+
+
+corecluster (15.12.36) stable; urgency=low
+
+  * Fixed actions in administrator's panel
+  * Changed behavior of storage mount
+  * Added django-timedelta requirement, necessary for db migrations
+
+ -- Marta Nabozny <martastrzet@gmail.com> 30 Dec 2015 10:00:00 +0200
+
+
+corecluster (15.12.35) stable; urgency=low
+
+  * Ip redirection and load balancing
+  * API execution time statistics
+  * Auth and id algorigthms were moved to algorigthms directory
+  * Fixed NFS support in Image agent
+  * Network quota
+  * VXLans support
+  * Task queue migrated to Redis
+  * PyPi based package
+  * Apache server changed to Nginx + Uwsgi
+  * Image.upload_data uses cache to store data
+
+ -- Marta Nabozny <martastrzet@gmail.com> 14 Dec 2015 10:00:00 +0200

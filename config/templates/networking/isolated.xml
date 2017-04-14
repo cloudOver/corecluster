@@ -1,0 +1,6 @@
+<network>
+  <name>{{ lease.vm_ifname }}</name>
+  <forward mode='bridge'>
+    <interface dev="{{ lease.isolated_port_name }}"/>
+  </forward>
+</network>

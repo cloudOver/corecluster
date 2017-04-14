@@ -1,0 +1,9 @@
+<!--
+Requires:
+* lease
+-->
+<interface type='network'>
+  <source network='{{ lease.vm_ifname }}'/>
+  <mac address="{{ lease.mac }}"/>
+  <model type='{{ lease.vm.base_image.network_device }}'/>
+</interface>

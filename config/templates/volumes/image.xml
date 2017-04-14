@@ -1,0 +1,12 @@
+<volume>
+    <name>{{user.id}}_{{image.id}}</name>
+    <source>
+    </source>
+    <capacity unit='bytes'>{{image.size}}</capacity>
+    <target>
+        <format type='{{ image.format }}'/>
+        <permissions>
+            <mode>660</mode>
+        </permissions>
+    </target>
+</volume>

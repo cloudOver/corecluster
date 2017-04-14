@@ -1,0 +1,12 @@
+<!--
+This template is used to create VM base image on node. All other images are
+created with image.xml template, directly on storage.
+-->
+<volume type='file'>
+    <name>{{ vm.id }}</name>
+    <allocation>0</allocation>
+    <capacity unit="bytes">{{ vm.base_image.size }}</capacity>
+    <permissions>
+        <mode>0660</mode>
+    </permissions>
+</volume>
