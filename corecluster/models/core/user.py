@@ -192,7 +192,7 @@ class User(StateMixin, CoreModel):
 
     def check_storage_quota(self, size):
         images_sum = 0
-        for image in self.image_set.all():
+        for image in self.image_set.exclude(state='deleted').all():
             images_sum += image.size
 
         if images_sum+size > self.group.quota_storage:

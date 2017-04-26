@@ -62,7 +62,7 @@ def create(context, name, description, size, image_type, disk_controller, access
     """
     context.user.check_storage_quota(size)
 
-    image = Image.create(context.user, name, description, size, image_type, disk_controller, access, format)
+    image = Image.create(context.user, name, description, long(size), image_type, disk_controller, access, format)
     image.save()
 
     task = Task(user=context.user)

@@ -1,5 +1,6 @@
-corecluster (17.04.01) stable; urgency=low
+corecluster (17.04.02) stable; urgency=low
 
+  * Fixed storage quota error - quota does not include deleted images
   * Reset task ignores errors to not cause fails of vm
 
  -- Marta Nabozny <marta.nabozny@cloudover.io> 02 Apr 2017 10:00:00 +0200
