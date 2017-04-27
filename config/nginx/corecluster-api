@@ -16,13 +16,13 @@ server {
     }
 
     # WebProxy Redirections
-    location ~* ^/webproxy/([a-zA-Z0-9]+)/$ {
-        set $vm_id $1;
+    location ~* ^/proxy/([a-zA-Z0-9]+)/$ {
+        set $lease_id $1;
 
         set_by_lua $webproxy_endpoint
-              'local f = assert(io.popen("sudo cc-manage vm webproxy " .. ngx.arg[1], "r"))
+              'local f = assert(io.popen("sudo cc-manage vm proxy " .. ngx.arg[1], "r"))
                local s = assert(f:read("*a"))
-               return s ' $vm_id;
+               return s ' $lease_id;
 
         proxy_pass $webproxy_endpoint;
     }

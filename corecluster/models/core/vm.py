@@ -78,9 +78,6 @@ class VM(StateMixin, UserMixin, CoreModel):
     vnc_passwd = models.CharField(null=True, max_length=50)
     save_on_destroy = models.BooleanField(default=False)
 
-    websocket_enabled = models.BooleanField(default=False)
-    websocket_port = models.IntegerField(default=80)
-
     serializable = ['id',
                     'data',
                     'name',

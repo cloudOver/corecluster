@@ -1,5 +1,6 @@
-corecluster (17.04.02) stable; urgency=low
+corecluster (17.04.03) stable; urgency=low
 
+  * Proxy support with API
   * Fixed storage quota error - quota does not include deleted images
   * Reset task ignores errors to not cause fails of vm
 

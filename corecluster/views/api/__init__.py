@@ -36,3 +36,4 @@ from corecluster.views.api.redirection import *
 from corecluster.views.api.storage import *
 from corecluster.views.api.api import *
 from corecluster.views.api.task import *
+from corecluster.views.api.proxy import *
