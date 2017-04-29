@@ -12,6 +12,10 @@ server {
                local s = tostring(f:read("*a"))
                return s .. "/websockify/"' $vm_id;
 
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
         proxy_pass $webvnc_endpoint;
     }
 
@@ -24,6 +28,10 @@ server {
                local s = assert(f:read("*a"))
                return s ' $lease_id;
 
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
         proxy_pass $webproxy_endpoint;
     }
 

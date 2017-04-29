@@ -72,7 +72,9 @@ class Lease(UserMixin, CoreModel):
                     ['redirected_from', '_get_public_redirection'],
                     'subnet_id',
                     'vm_id',
-                    'access']
+                    'access',
+                    'proxy_enabled',
+                    'proxy_port']
 
     editable = [['access', v.in_list(UserMixin.object_access)],
                 ['hostname', v.is_hostname()]]
