@@ -10,7 +10,7 @@ def version():
 setup(
   name = 'corecluster',
   packages = find_packages(exclude=['config', 'config.*']),
-  version = '17.04.02',
+  version = '17.04.04',
   description = 'CloudOver core IaaS system',
   author = 'Marta Nabozny',
   author_email = 'martastrzet@gmail.com',
