@@ -128,7 +128,7 @@ class ImageAdmin(admin.ModelAdmin):
 
 
     def owner(self, obj):
-        return obj.user.name + ' ' + obj.user.surname + ' (' + str(obj) + ')'
+        return obj.user.name + ' ' + obj.user.surname
 
 
     def delete(self, request, queryset):

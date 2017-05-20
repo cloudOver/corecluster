@@ -118,7 +118,7 @@ class VMAdmin(admin.ModelAdmin):
 
 
     def owner(self, obj):
-        return obj.user.name + ' ' + obj.user.surname + ' (' + str(obj) + ')'
+        return obj.user.name + ' ' + obj.user.surname
 
 
     def template_details(self, obj):

@@ -1,3 +1,10 @@
+corecluster (17.05.01) stable; urgency=low
+
+  * Updated lists in CoreCluster admin panel
+
+ -- Marta Nabozny <marta.nabozny@cloudover.io> 20 May 2017 10:00:00 +0200
+
+
 corecluster (17.04.04) stable; urgency=low
 
   * Proxy support with API
