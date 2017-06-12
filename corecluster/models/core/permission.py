@@ -39,7 +39,7 @@ class Permission(CoreModel):
     execution time statistics for all API calls (if DEBUG=True)
     """
     function = models.CharField(max_length=256)
-    execution_time = models.DurationField(help_text="Total time spent on function execution. Divided by requests equals to average time", default=datetime.timedelta())
+    execution_time = models.IntegerField(default=0, help_text="Total time in milliseconds spent on function execution time")
     requests = models.IntegerField(default=0)
 
     serializable = ['function']

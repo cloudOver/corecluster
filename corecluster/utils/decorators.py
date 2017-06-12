@@ -42,7 +42,7 @@ from datetime import datetime
 import json
 import inspect
 import importlib
-
+import time
 
 global function_doc
 global decorated_functions
@@ -130,7 +130,7 @@ class Register(object):
             self.do_validation(data)
 
             # Call function
-            start_time = datetime.now()
+            start_time = time.time()
             resp['data'] = self.function(**data)
 
             # Commit database
@@ -141,7 +141,7 @@ class Register(object):
                 fname = self.function_name.replace('.', '/')
                 permission = Permission.objects.filter(function=fname).first()
                 permission.requests += 1
-                permission.execution_time += datetime.now() - start_time
+                permission.execution_time += 1000 * (time.time() - start_time)
                 permission.save()
 
             if self.log:
