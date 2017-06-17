@@ -243,6 +243,10 @@ def console(context, vm_id, enable):
 @register(auth='token', log=True, validate={'vm_id': v.is_id()})
 def resize(context, vm_id, size):
     vm = VM.get(context.user_id, vm_id)
+
+    if size == 'max':
+        size = vm.template.hdd * 1024 * 1024
+
     if size > vm.template.hdd*1024*1024:
         raise CoreException('size_exceeds_template')
 
