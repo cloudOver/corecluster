@@ -1,3 +1,13 @@
+corecluster (17.06.01) stable; urgency=low
+
+  * Fixed API stats
+  * vm.resize accepts 'max' as size to resize to maximum capacity allowed by template
+  * Updated some docsctrings
+  * Fixed issue with permissions
+
+ -- Maciej Nabozny <marta.nabozny@cloudover.io> 17 Jun 2017 10:00:00 +0200
+
+
 corecluster (17.05.01) stable; urgency=low
 
   * Updated lists in CoreCluster admin panel
