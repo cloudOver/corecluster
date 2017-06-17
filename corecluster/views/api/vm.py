@@ -174,7 +174,7 @@ def save_image(context, vm_id):
         raise CoreException('vm_has_no_base_image')
 
     image = Image.create(vm.user,
-                         vm.base_image.name,
+                         vm.name + '-save-' + str(datetime.datetime.now()),
                          vm.base_image.description,
                          vm.base_image.size,
                          vm.base_image.type,
@@ -192,7 +192,7 @@ def save_image(context, vm_id):
 @register(auth='token', log=True, validate={'vm_id': v.is_id()})
 def reload_image(context, vm_id):
     """
-    Reload image to fresh copy of base_image. It looks like "system reinstallation"
+    Reload image to fresh copy of base_image
     """
     vm = VM.get(context.user_id, vm_id)
 
@@ -229,6 +229,9 @@ def cleanup(context, vm_id):
 
 @register(auth='token', log=True, validate={'vm_id': v.is_id()})
 def console(context, vm_id, enable):
+    """
+    Enable or disable web console (novnc) for VM
+    """
     vm = VM.get(context.user_id, vm_id)
     task = Task(user=context.user)
     task.type = 'console'
@@ -242,6 +245,10 @@ def console(context, vm_id, enable):
 
 @register(auth='token', log=True, validate={'vm_id': v.is_id()})
 def resize(context, vm_id, size):
+    """
+    Resize base image of VM to given size. Use size='max' to set maximum size
+    allowed by template
+    """
     vm = VM.get(context.user_id, vm_id)
 
     if size == 'max':
