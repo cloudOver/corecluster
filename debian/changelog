@@ -1,4 +1,4 @@
-corecluster (17.06.02) stable; urgency=low
+corecluster (17.06.03) stable; urgency=low
 
   * Fixed API stats
   * vm.resize accepts 'max' as size to resize to maximum capacity allowed by template
