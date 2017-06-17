@@ -4,6 +4,7 @@ corecluster (17.06.01) stable; urgency=low
   * vm.resize accepts 'max' as size to resize to maximum capacity allowed by template
   * Updated some docsctrings
   * Fixed issue with permissions
+  * Node wakeonlan
 
  -- Maciej Nabozny <marta.nabozny@cloudover.io> 17 Jun 2017 10:00:00 +0200
 
