@@ -39,7 +39,7 @@ from corenetwork.utils import config
 
 
 @register_decorator(auth='guest')
-def register(context, auth_token, cpu_total, memory_total, hdd_total, username='cloudover', driver='qemu', transport='ssh', suffix='/system'):
+def register(context, auth_token, cpu_total, memory_total, hdd_total, username='cloudover', driver='qemu', transport='ssh', suffix='/system', mac=''):
     '''
     :param auth_token: Authorization token, which will be used to authenticate node in future
     :param cpu_total: Ammount of CPU shared by node with Cloud
@@ -66,6 +66,7 @@ def register(context, auth_token, cpu_total, memory_total, hdd_total, username='
             node.transport = transport
             node.suffix = suffix
             node.state = 'not confirmed'
+            node.mac = mac
             node.save()
         else:
             raise CoreException('node_not_found')

@@ -61,6 +61,7 @@ class Node(StateMixin, CoreModel):
 
     username = models.CharField(max_length=30, help_text="User account which will be used to connect with this node")
     address = models.GenericIPAddressField(help_text="Node ip address")
+    mac = models.CharField(max_length=30, help_text='Mac address for node wakeup', default='', empty=True)
     transport = models.CharField(max_length=45, default='ssh', help_text="Network transport for libvirt")
     driver = models.CharField(max_length=45, default='qemu', help_text="Virtualisation driver for libvirt. Used also as template name for VM definition")
     suffix = models.CharField(max_length=20, default='/system', help_text="Libvirt connection url suffix. /system for qemu")
