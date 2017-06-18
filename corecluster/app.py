@@ -31,4 +31,15 @@ MODULE = {
     'algorithms': {
 
     },
+    'cli': {
+        'agent': 'corecluster.cli.agent',
+        'api': 'corecluster.cli.api',
+        'image': 'corecluster.cli.image',
+        'network_pool': 'corecluster.cli.network_pool',
+        'node': 'corecluster.cli.node',
+        'storage': 'corecluster.cli.storage',
+        'subnet': 'corecluster.cli.subnet',
+        'task': 'corecluster.cli.task',
+        'vm': 'corecluster.cli.vm',
+    }
 }
