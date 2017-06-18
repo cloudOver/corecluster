@@ -16,8 +16,9 @@ MODULE = {
     'hooks': {
         'agent.vm.create': ['corecluster.hooks.vm'],
         'agent.vm.remove_vm': ['corecluster.hooks.vm'],
-        'cron.minute': ['corecluster.hooks.node_libvirt'],
+        'cron.minute': ['corecluster.hooks.node_libvirt', 'corecluster.hooks.wakeonlan'],
         'cron.hourly': ['corecluster.hooks.vm_cleanup_db', 'corecluster.hooks.vm_cleanup_task'],
+        'cron.daily': [],
     },
     'agents': [
         {'type': 'vm', 'module': 'corecluster.agents.vm', 'count': 4},

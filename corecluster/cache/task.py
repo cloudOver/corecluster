@@ -87,6 +87,8 @@ class Task(Model):
     def __unicode__(self):
         return self.type + '-' + self.action + '-' + self.id
 
+    def __str__(self):
+        return self.__unicode__()
 
     def append_to(self, objects, broadcast=False):
         self.set_state('init')
