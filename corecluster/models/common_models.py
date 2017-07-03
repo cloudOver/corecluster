@@ -35,7 +35,7 @@ from corecluster.utils.exception import CoreException
 from corecluster.utils.encoders import CoreEncoder
 from corecluster.cache import Cache
 
-from corenetwork.utils import config
+from corenetwork.utils import config, system
 from corenetwork.utils.logger import log
 
 
@@ -411,3 +411,30 @@ class StateMixin(models.Model):
                 raise CoreException('invalid_state_%s' % state)
 
         return self.state in states
+
+
+class ServiceMixin():
+    '''
+    Inherit this mixin in your class to provide service-abstraction layer. This could be used by i.e. dhcp, routing
+    or monitoring extensions.
+    '''
+    states = [
+        'init',
+        'running',
+        'failed',
+        'stopped',
+        'removed',
+    ]
+
+    start_command = '/bin/false'
+    stop_command = '/bin/false'
+
+    name = models.CharField(max_length=250)
+    description = models.TextField(default='')
+    type = models.CharField(max_length=250, default='')
+
+    def start(self, **parameters):
+        system.call(self.start_command)
+
+    def stop(self, **parameters):
+        system.call(self.stop_command)

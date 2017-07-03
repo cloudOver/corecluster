@@ -35,14 +35,16 @@ rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 %post
-echo "coreCluster: Installing python package CoreCluster"
-pip install --upgrade corecluster==16.02.01 || /bin/true
+echo "coreCluster: Installing PyPi packages"
+pip install -U redis
 
 echo "coreCluster: Changing permissions"
-chown -R syslog:adm /var/log/cloudOver || chown -R syslog:cloudover /var/log/cloudOver || chown -R cloudover:cloudover /var/log/cloudOver || true
-chmod -R ug+rw /var/log/cloudOver || true
+chown -R syslog:adm /var/log/cloudOver 2>/dev/null || true
+chown -R syslog:cloudover /var/log/cloudOver 2> /dev/null || true
+chown -R cloudover:cloudover /var/log/cloudOver 2> /dev/null || true
+chmod -R ug+rw /var/log/cloudOver 2> /dev/null || true
 
-echo "coreCluster: Restarting rsyslogd"
+echo "coreCluster: Restarting rsyslog service"
 service rsyslog restart || service rsyslogd restart || true
 
 if ! [ -f /etc/corecluster/config.py ] ; then
@@ -59,8 +61,9 @@ if ! [ -f /etc/corecluster/agent.py ] ; then
     cp /etc/corecluster/agent.example /etc/corecluster/agent.py
 fi
 
-echo "coreCluster: Migrating database"
+echo "coreCluster: Migrating databases"
 /usr/sbin/cc-admin migrate --noinput
+/usr/sbin/cc-admin migrate --database=logs --noinput
 
 echo "coreCluster: Changing permissions"
 chown -R cloudover:cloudover /var/lib/cloudOver || true
@@ -73,11 +76,11 @@ chmod 660 /etc/corecluster/version.py
 chmod 660 /etc/corenetwork/config.py
 
 echo "coreCluster: Collecting static files"
-chown -R cloudover:www-data /var/lib/cloudOver/static/ || true
+chown -R cloudover:www-data /var/lib/cloudOver/static/ 2> /dev/null|| true
 /usr/sbin/cc-admin collectstatic --noinput || true
 
-find /etc/corecluster -name "*.pyc" -exec rm + || true
-find /etc/corenetwork -name "*.pyc" -exec rm + || true
+find /etc/corecluster -name "*.pyc" -exec rm + 2> /dev/null || true
+find /etc/corenetwork -name "*.pyc" -exec rm + 2> /dev/null || true
 find /usr/local/lib/python2.7/dist-packages/corecluster -name "*.pyc" -exec rm + 2> /dev/null || true
 find /usr/local/lib/python2.7/dist-packages/corenetwork -name "*.pyc" -exec rm + 2> /dev/null || true
 
@@ -87,7 +90,7 @@ service avahi-daemon restart
 echo "coreCluster: Restarting uwsgi"
 service uwsgi restart
 
-echo "coreCluster: Restarting nginx"
+echo "coreCluster: Restarting Nginx"
 service nginx restart
 
 %clean
