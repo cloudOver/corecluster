@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('corecluster', '0048_merge'),
+        ('corecluster', '0046_migrate_hash'),
     ]
 
     operations = [

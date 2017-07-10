@@ -1,3 +1,10 @@
+corecluster (17.07.01) stable; urgency=low
+
+  * Fixed migration
+
+ -- Maciej Nabozny <marta.nabozny@cloudover.io> 10 Jul 2017 10:00:00 +0200
+
+
 corecluster (17.06.07) stable; urgency=low
 
   * Fixed API stats
