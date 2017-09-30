@@ -3,8 +3,30 @@ Upstream-Name: corecluster
 Source: <http://cloudover.org/>
 
 Files: *
-Copyright: 2014-2017 Maciej Nabozny <mn@mnabozny.pl>, 2015-2017 Marta Nabozny <martastrzet@gmail.com>
-License: AGPL-3
+Copyright: 2014-2017 cloudover.io <contact@cloudover.io>
+License: Dual
+ General
+ =======
+ The code provided by CloudOver.org project and cloudover.io company is
+ delivered on commercial license with various licensing models. This
+ licenses allow you to keep all source code closed, do not share it with
+ third parties and mix software with third-party components, that are
+ either closed source or proprietary. Detailed licensing terms should be
+ included in your copy of the commercial license.
+ 
+ The CloudOver.org project is also available as open source software,
+ licensed under GNU Affero GPL 3 as an alternative to our commercial
+ licenses. The terms of this license should be included to the code.
+ 
+ Please note that some of the third-party codes available in
+ CloudOver.org repositories are licensed under different conditions.
+ These snippets of code are licensed under the following terms: Apache2,
+ MIT and / or BSD. In the header of each file, find the appropriate
+ information. This code is owned by third parties and is not covered
+ by this license.
+ 
+ AGPL v3
+ =======
  Copyright (C) 2014-2017 cloudover.io ltd.
  This file is part of the CloudOver.org project
 
@@ -20,13 +42,11 @@ License: AGPL-3
  published by the Free Software Foundation, either version 3 of the
  License, or (at your option) any later version. For details contact
  with the cloudover.io company: https://cloudover.io/
-
-
+ 
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU Affero General Public License for more details.
-
-
+ 
  You should have received a copy of the GNU Affero General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.

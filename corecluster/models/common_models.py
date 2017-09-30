@@ -438,3 +438,14 @@ class ServiceMixin():
 
     def stop(self, **parameters):
         system.call(self.stop_command)
+
+
+class ResourceMixin():
+    '''
+    Inherit this mixin in your model to implement resource accounting functionality. This mixin provides additional
+    start and stop time fields, for each resource in cloud.
+    '''
+
+    resource_created = models.DateTimeField(auto_now_add=True)
+    resource_destroyed = models.DateTimeField(null=True)
+
