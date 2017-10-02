@@ -30,7 +30,7 @@ import libvirt
 from coremetry.utils import record
 
 
-def _monitor_system(self, conn):
+def _monitor_system(conn):
     hostname = conn.getHostname()
     for interface in conn.listInterfaces():
         rx = int(open('/sys/class/net/' + interface + '/statistics/rx_bytes'))
@@ -49,16 +49,16 @@ def _monitor_system(self, conn):
         tx_packets = rx.read(10240)
         tx.close()
 
-        self._store('system_net_' + interface + '_rx_bytes', hostname, rx_bytes)
-        self._store('system_net_' + interface + '_rx_packets', hostname, rx_packets)
-        self._store('system_net_' + interface + '_tx_bytes', hostname, tx_bytes)
-        self._store('system_net_' + interface + '_tx_packets', hostname, tx_packets)
+        record.store('system_net_' + interface + '_rx_bytes', hostname, rx_bytes)
+        record.store('system_net_' + interface + '_rx_packets', hostname, rx_packets)
+        record.store('system_net_' + interface + '_tx_bytes', hostname, tx_bytes)
+        record.store('system_net_' + interface + '_tx_packets', hostname, tx_packets)
 
     mem_stats = conn.getMemoryStats(libvirt.VIR_NODE_MEMORY_STATS_ALL_CELLS)
 
-    self._store('node_memory_available', hostname, mem_stats['total'] - mem_stats['buffers'] - mem_stats['cached'])
-    self._store('node_memory_free', hostname, mem_stats['free'])
-    self._store('system_memory_total', hostname, mem_stats['total'])
+    record.store('node_memory_available', hostname, mem_stats['total'] - mem_stats['buffers'] - mem_stats['cached'])
+    record.store('node_memory_free', hostname, mem_stats['free'])
+    record.store('system_memory_total', hostname, mem_stats['total'])
 
 
 def monitor():

@@ -41,5 +41,11 @@ MODULE = {
         'subnet': 'corecluster.cli.subnet',
         'task': 'corecluster.cli.task',
         'vm': 'corecluster.cli.vm',
-    }
+    },
+    'coremetry': [
+        'corecluster.coremetry.node',
+        'corecluster.coremetry.storage',
+        'corecluster.coremetry.system',
+        'corecluster.coremetry.vm',
+    ]
 }
