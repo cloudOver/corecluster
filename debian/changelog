@@ -1,4 +1,4 @@
-corecluster (17.10.03) stable; urgency=low
+corecluster (17.10.04) stable; urgency=low
 
   * Coremetric basic support
   * Coremetry modules

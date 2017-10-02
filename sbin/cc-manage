@@ -63,16 +63,16 @@ if __name__ == "__main__":
             from corecluster.models.core.cluster_id import ClusterID
             from corenetwork.utils import config
             requests.get('https://cloudover.io/coremetric/register-management/?cluster_id=' + ClusterID.obtain_id() +
-                         '&management_id=' + config.get('code', 'INSTALLATION_ID'))
+                         '&management_id=' + config.get('core', 'INSTALLATION_ID'))
 
             for driver in drivers:
                 driver.configure_core()
         elif sys.argv[1] == 'agent' and sys.argv[2] == 'start':
             from corecluster import version
             from corenetwork.utils import config
-            requests.get('https://cloudover.io/coremetric/update-management/?id=' + config.get('code', 'INSTALLATION_ID') +
+            requests.get('https://cloudover.io/coremetric/update-management/?id=' + config.get('core', 'INSTALLATION_ID') +
                          '&version=' + version.version +
-                         '&apps=' + urllib.quote_plus(config.get('core', 'APPS')) +
+                         '&apps=' + urllib.quote_plus(str(config.get('core', 'APPS'))) +
                          '&state=starting')
 
             for driver in drivers:
@@ -81,7 +81,7 @@ if __name__ == "__main__":
             signal.signal(signal.SIGTERM, handler)
             signal.signal(signal.SIGINT, handler)
 
-            requests.get('https://cloudover.io/coremetric/update-management/?id=' + config.get('code', 'INSTALLATION_ID') +
+            requests.get('https://cloudover.io/coremetric/update-management/?id=' + config.get('core', 'INSTALLATION_ID') +
                          '&version=' + version.version +
                          '&state=agents-running')
             print("Ok")
@@ -89,7 +89,7 @@ if __name__ == "__main__":
             while i_am_running:
                 time.sleep(1)
 
-            requests.get('https://cloudover.io/coremetric/update-management/?id=' + config.get('code', 'INSTALLATION_ID') +
+            requests.get('https://cloudover.io/coremetric/update-management/?id=' + config.get('core', 'INSTALLATION_ID') +
                          '&version=' + version.version +
                          '&state=stopped')
         else:
@@ -99,7 +99,7 @@ if __name__ == "__main__":
         print("Error occurred: " + str(e))
         log(msg="failed to start action %s" % sys.argv[1], function="cc-manage", exception=e)
 
-        requests.get('https://cloudover.io/coremetric/update-management/?id=' + config.get('code', 'INSTALLATION_ID')
-                     + '&version=' + version.version
-                     + '&apps=' + config.get('core', 'APPS')
-                     + '&state=failed')
+        requests.get('https://cloudover.io/coremetric/update-management/?id=' + config.get('core', 'INSTALLATION_ID') +
+                     '&version=' + version.version +
+                     '&apps=' + urllib.quote_plus(str(config.get('core', 'APPS'))) +
+                     '&state=failed')
