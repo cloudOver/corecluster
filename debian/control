@@ -4,7 +4,7 @@ Priority: extra
 Maintainer: Marta Nabozny <martastrzet@gmail.com>
 Build-Depends: debhelper (>= 8.0.0), dh-systemd
 Standards-Version: 3.9.4
-Homepage: http://cloudover.org/corecluster/
+Homepage: http://cloudover.org/
 
 Package: corecluster
 Architecture: all

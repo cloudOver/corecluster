@@ -42,3 +42,4 @@ from corecluster.models.core.subnet import Subnet
 from corecluster.models.core.device import Device
 from corecluster.models.core.vm import VM
 from corecluster.models.core.token import Token
+from corecluster.models.core.cluster_id import ClusterID
