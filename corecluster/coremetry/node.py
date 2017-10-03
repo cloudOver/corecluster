@@ -38,14 +38,14 @@ def _monitor_node(node, conn):
     record.store('node_memory_free', node.id, mem_stats['free'])
     record.store('node_memory_total', node.id, mem_stats['total'])
 
-    arch, mem_total_mb, cpus, cpu_freq_mhz, numa_nodes, sockets_per_node, cores_per_socket, threads_per_core = conn.getCPUInfo()
+    arch, mem_total_mb, cpus, cpu_freq_mhz, numa_nodes, sockets_per_node, cores_per_socket, threads_per_core = conn.getInfo()
 
     idle = 0
     iowait = 0
     kernel = 0
     user = 0
     for core in xrange(numa_nodes * sockets_per_node * cores_per_socket * threads_per_core):
-        cpu_stats = conn.getCPUInfo(core)
+        cpu_stats = conn.getCPUStats(core)
         idle += cpu_stats['idle']
         iowait += cpu_stats['iowait']
         kernel += cpu_stats['kernel']
@@ -58,7 +58,7 @@ def _monitor_node(node, conn):
 
     record.store('node_vms_defined', node.id, node.vm_set.count())
     record.store('node_vms_running', node.id, node.vm_set.filter(state='running').count())
-    record.store('node_vms_real', node.id, conn.listDomainsID())
+    record.store('node_vms_real', node.id, len(conn.listDomainsID()))
 
     storage = conn.storagePoolLookupByName('images')
     storage.refresh()

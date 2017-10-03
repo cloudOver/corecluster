@@ -45,6 +45,9 @@ class Hook(NetworkMixin, OsMixin, ApiMixin, HookInterface):
                 continue
             ip = fields[0]
             mac = fields[3]
+            if mac == '00:00:00:00:00:00':
+                continue
+
             try:
                 node = Node.objects.get(address=ip)
                 node.mac = mac

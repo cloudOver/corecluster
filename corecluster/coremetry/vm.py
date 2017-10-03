@@ -34,12 +34,11 @@ from xml.etree import ElementTree
 def _monitor_vm(vm, conn):
     dom = conn.lookupByName(vm.libvirt_name)
 
-    cpu_stats = dom.getCPUStats(True)
+    cpu_stats = dom.getCPUStats(True)[0]
     record.store('vm_memory_used', vm.id, dom.memoryStats()['rss'], vm.user)
     record.store('vm_cpu_time', vm.id, cpu_stats['cpu_time'], vm.user)
     record.store('vm_system_time', vm.id, cpu_stats['system_time'], vm.user)
     record.store('vm_user_time', vm.id, cpu_stats['user_time'], vm.user)
-    record.store('vm_cpu_time', vm.id, dom.info()[4], vm.user)
 
     tree = ElementTree.fromstring(dom.XMLDesc())
     for interface in tree.findall('devices/interface'):
@@ -64,6 +63,6 @@ def monitor():
     for node in Node.objects.filter(state='ok'):
         conn = node.libvirt_conn()
         for vm in node.vm_set.filter(state='running'):
-            record.monitor_vm(vm, conn)
+            _monitor_vm(vm, conn)
 
         conn.close()

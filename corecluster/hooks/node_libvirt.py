@@ -38,7 +38,7 @@ from corecluster.models.core import Node
 class Hook(NetworkMixin, OsMixin, ApiMixin, HookInterface):
     task = None
 
-    def cron(self):
+    def cron(self, interval):
         try:
             self._check_i_am_cloudover()
         except:

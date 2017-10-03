@@ -33,20 +33,20 @@ from coremetry.utils import record
 def _monitor_system(conn):
     hostname = conn.getHostname()
     for interface in conn.listInterfaces():
-        rx = int(open('/sys/class/net/' + interface + '/statistics/rx_bytes'))
-        rx_bytes = rx.read(10240)
+        rx = open('/sys/class/net/' + interface + '/statistics/rx_bytes')
+        rx_bytes = int(rx.read(10240))
         rx.close()
 
-        rx = int(open('/sys/class/net/' + interface + '/statistics/rx_packets'))
-        rx_packets = rx.read(10240)
+        rx = open('/sys/class/net/' + interface + '/statistics/rx_packets')
+        rx_packets = int(rx.read(10240))
         rx.close()
 
-        tx = int(open('/sys/class/net/' + interface + '/statistics/tx_bytes'))
-        tx_bytes = rx.read(10240)
+        tx = open('/sys/class/net/' + interface + '/statistics/tx_bytes')
+        tx_bytes = int(tx.read(10240))
         tx.close()
 
-        tx = int(open('/sys/class/net/' + interface + '/statistics/tx_packets'))
-        tx_packets = rx.read(10240)
+        tx = open('/sys/class/net/' + interface + '/statistics/tx_packets')
+        tx_packets = int(tx.read(10240))
         tx.close()
 
         record.store('system_net_' + interface + '_rx_bytes', hostname, rx_bytes)
@@ -56,8 +56,8 @@ def _monitor_system(conn):
 
     mem_stats = conn.getMemoryStats(libvirt.VIR_NODE_MEMORY_STATS_ALL_CELLS)
 
-    record.store('node_memory_available', hostname, mem_stats['total'] - mem_stats['buffers'] - mem_stats['cached'])
-    record.store('node_memory_free', hostname, mem_stats['free'])
+    record.store('system_memory_available', hostname, mem_stats['total'] - mem_stats['buffers'] - mem_stats['cached'])
+    record.store('system_memory_free', hostname, mem_stats['free'])
     record.store('system_memory_total', hostname, mem_stats['total'])
 
 

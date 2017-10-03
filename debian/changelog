@@ -2,8 +2,9 @@ corecluster (17.10.04) stable; urgency=low
 
   * Coremetric basic support
   * Coremetry modules
+  * Fixed hook handling
 
- -- Maciej Nabozny <maciej.nabozny@cloudover.io> 02 Oct 2017 10:00:00 +0200
+ -- Maciej Nabozny <maciej.nabozny@cloudover.io> 03 Oct 2017 10:00:00 +0200
 
 
 corecluster (17.07.01) stable; urgency=low

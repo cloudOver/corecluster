@@ -56,20 +56,19 @@ def handler(signum, frame):
     i_am_running = False
 
 
+from corecluster.models.core.cluster_id import ClusterID
+from corenetwork.utils import config
+from corecluster import version
 
 if __name__ == "__main__":
     try:
         if sys.argv[1] == 'configure':
-            from corecluster.models.core.cluster_id import ClusterID
-            from corenetwork.utils import config
             requests.get('https://cloudover.io/coremetric/register-management/?cluster_id=' + ClusterID.obtain_id() +
                          '&management_id=' + config.get('core', 'INSTALLATION_ID'))
 
             for driver in drivers:
                 driver.configure_core()
         elif sys.argv[1] == 'agent' and sys.argv[2] == 'start':
-            from corecluster import version
-            from corenetwork.utils import config
             requests.get('https://cloudover.io/coremetric/update-management/?id=' + config.get('core', 'INSTALLATION_ID') +
                          '&version=' + version.version +
                          '&apps=' + urllib.quote_plus(str(config.get('core', 'APPS'))) +
