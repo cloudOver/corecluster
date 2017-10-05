@@ -32,6 +32,7 @@ from corenetwork.os_mixin import OsMixin
 from corenetwork.api_mixin import ApiMixin
 from corenetwork.hook_interface import HookInterface
 from corenetwork.utils.logger import *
+from corecluster.models.core import VM
 
 class Hook(NetworkMixin, OsMixin, ApiMixin, HookInterface):
     task = None
