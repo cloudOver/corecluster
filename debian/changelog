@@ -1,9 +1,11 @@
-corecluster (17.10.06) stable; urgency=low
+corecluster (17.10.08) stable; urgency=low
 
+  * Updated nginx configs and HTTP headers
   * Coremetric basic support
   * Coremetry modules
   * Fixed hook handling
   * Added dependencies for Debian 9
+  * Support for Options and sameorigin policy
 
  -- Maciej Nabozny <maciej.nabozny@cloudover.io> 03 Oct 2017 10:00:00 +0200
 

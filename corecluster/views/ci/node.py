@@ -27,19 +27,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import datetime
-import pwd
-import os
+import requests
+import urllib
 
 from corecluster.utils.decorators import register as register_decorator
 from corecluster.models.core.node import Node
 from corecluster.models.core.agent import Agent
+from corecluster.models.core.cluster_id import ClusterID
 from corecluster.utils.exception import CoreException
 from corenetwork.utils.logger import log
 from corenetwork.utils import config
 
 
 @register_decorator(auth='guest')
-def register(context, auth_token, cpu_total, memory_total, hdd_total, username='cloudover', driver='qemu', transport='ssh', suffix='/system', mac=''):
+def register(context, auth_token, cpu_total, memory_total, hdd_total, username='cloudover', driver='qemu', transport='ssh', suffix='/system', mac='', installation_id=''):
     '''
     :param auth_token: Authorization token, which will be used to authenticate node in future
     :param cpu_total: Ammount of CPU shared by node with Cloud
@@ -78,6 +79,9 @@ def register(context, auth_token, cpu_total, memory_total, hdd_total, username='
         node.save()
     else:
         raise CoreException('node_registered')
+
+    requests.get('https://cloudover.io/coremetric/register-node/?cluster_id=' + ClusterID.obtain_id() +
+                 '&node_id=' + installation_id)
 
 
 @register_decorator(auth='node')

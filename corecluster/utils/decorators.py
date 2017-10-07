@@ -89,6 +89,15 @@ class Register(object):
 
 
     def __call__(self, *args, **kwargs):
+        if args[0].method == 'OPTIONS':
+            resp = HttpResponse()
+            resp['Allow'] = 'POST, OPTIONS'
+            resp['Accept'] = 'application/json'
+            resp['Access-Control-Allow-Headers'] = 'Content-Type'
+            resp['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
+            resp['Access-Control-Allow-Origin'] = '*'
+            return resp
+
         data = json.loads(args[0].body)
         user = None
         node = None
@@ -169,6 +178,8 @@ class Register(object):
         Prepare valid Django's response object
         """
         resp = HttpResponse(json.dumps(response, cls=CoreEncoder, check_circular=False))
+        resp['Access-Control-Allow-Headers'] = 'Content-Type'
+        resp['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
         resp['Access-Control-Allow-Origin'] = '*'
         resp['Content-type'] = 'application/json'
         return resp
