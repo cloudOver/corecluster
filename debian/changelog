@@ -1,4 +1,4 @@
-corecluster (17.10.08) stable; urgency=low
+corecluster (17.10.09) stable; urgency=low
 
   * Updated nginx configs and HTTP headers
   * Coremetric basic support
