@@ -319,8 +319,9 @@ class UserMixin(models.Model):
         '''
         Edit fields allowed by editable list.
         '''
+        l = Cache.lock('db:' + self.__class__.__name__ + ':' + self.id + ':lock')
+
         try:
-            l = Cache.lock('db:' + self.__class__.__name__ + ':' + self.id + ':lock')
             l.acquire()
 
             if hasattr(self, 'user_id') and hasattr(context, 'user_id') and self.user_id != context.user_id:
@@ -343,7 +344,6 @@ class UserMixin(models.Model):
             l.release()
         except Exception as e:
             log(msg="Failed to edit: " + str(e), exception=e, loglevel='error')
-        finally:
             l.release()
 
 

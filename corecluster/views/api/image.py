@@ -44,7 +44,7 @@ from corenetwork.utils.logger import log
                                             'description': v.is_string(empty=True),
                                             'size': v.is_integer(),
                                             'image_type': v.is_string(),
-                                            'disk_controller': v.is_string(),
+                                            'disk_controller': v.is_string(none=True),
                                             'access': v.is_string(none=True),
                                             'format': v.is_string(none=True)})
 def create(context, name, description, size, image_type, disk_controller=config.get('hardware', 'default_disk_controller'), access='private', format=config.get('hardware', 'default_image_format')):
