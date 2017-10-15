@@ -47,7 +47,7 @@ from corenetwork.utils.logger import log
                                             'disk_controller': v.is_string(),
                                             'access': v.is_string(none=True),
                                             'format': v.is_string(none=True)})
-def create(context, name, description, size, image_type, disk_controller, access='private', format=config.get('hardware', 'default_image_format')):
+def create(context, name, description, size, image_type, disk_controller=config.get('hardware', 'default_disk_controller'), access='private', format=config.get('hardware', 'default_image_format')):
     """ Create new image
 
     Args:

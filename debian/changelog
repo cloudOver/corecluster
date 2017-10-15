@@ -1,4 +1,4 @@
-corecluster (17.10.09) stable; urgency=low
+corecluster (17.10.10) stable; urgency=low
 
   * Updated nginx configs and HTTP headers
   * Coremetric basic support
@@ -6,8 +6,10 @@ corecluster (17.10.09) stable; urgency=low
   * Fixed hook handling
   * Added dependencies for Debian 9
   * Support for Options and sameorigin policy
+  * Fixed edit
+  * Updated image.create. Does not require disk_controller, which is usable only with permanent images
 
- -- Maciej Nabozny <maciej.nabozny@cloudover.io> 03 Oct 2017 10:00:00 +0200
+ -- Maciej Nabozny <maciej.nabozny@cloudover.io> 14 Oct 2017 10:00:00 +0200
 
 
 corecluster (17.07.01) stable; urgency=low

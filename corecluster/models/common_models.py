@@ -319,27 +319,32 @@ class UserMixin(models.Model):
         '''
         Edit fields allowed by editable list.
         '''
-        l = Cache.lock('db:' + self.__class__.__name__ + ':' + self.id + ':lock')
-        l.acquire()
+        try:
+            l = Cache.lock('db:' + self.__class__.__name__ + ':' + self.id + ':lock')
+            l.acquire()
 
-        if hasattr(self, 'user_id') and hasattr(context, 'user_id') and self.user_id != context.user_id:
+            if hasattr(self, 'user_id') and hasattr(context, 'user_id') and self.user_id != context.user_id:
+                l.release()
+                raise CoreException('not_owner')
+
+            for field in self.editable:
+                if isinstance(field, str):
+                    if field in kwargs.keys():
+                        log(msg="Updating field %s" % field[0], context=self.logger_ctx)
+                        setattr(self, field, kwargs[field])
+                if isinstance(field, list):
+                    if field[0] in kwargs.keys():
+                        # First, validate this param
+                        field[1](field[0], kwargs[field[0]])
+                        log(msg="Updating field %s" % field[0], context=self.logger_ctx)
+                        setattr(self, field[0], kwargs[field[0]])
+            self.save()
+
             l.release()
-            raise CoreException('not_owner')
-
-        for field in self.editable:
-            if isinstance(field, str):
-                if field in kwargs.keys():
-                    log(msg="Updating field %s" % field[0], context=self.logger_ctx)
-                    setattr(self, field, kwargs[field])
-            if isinstance(field, list):
-                if field[0] in kwargs.keys():
-                    # First, validate this param
-                    field[1](field[0], kwargs[field[0]])
-                    log(msg="Updating field %s" % field[0], context=self.logger_ctx)
-                    setattr(self, field[0], kwargs[field[0]])
-        self.save()
-
-        l.release()
+        except Exception as e:
+            log(msg="Failed to edit: " + str(e), exception=e, loglevel='error')
+        finally:
+            l.release()
 
 
     def remove(self, context):
