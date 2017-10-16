@@ -42,12 +42,12 @@ def get_list(context):
     return []
 
 
-@register(auth='token', log=True, validate={'task_id': v.is_id()})
+@register(auth='token', log=True, validate={'task_id': v.is_string()})
 def cancel(context, task_id):
     """
     Cancel tasks by id
     """
-    task = Task(cache_id=task_id)
+    task = Task(cache_key=task_id)
     if task.user_id == context.user_id:
         task.set_state('canceled')
         task.save()
