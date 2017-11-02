@@ -103,7 +103,7 @@ APPS = [
     'corecluster.app',
     'corecluster-auth-db.app',
     'corecluster-algorithm-storage-default.app',
-    'corecluster-algorithm-node-default.app',
+    'corecluster-algorithm-node-fillup.app',
     'corecluster-algorithm-id-uuid.app',
     'corecluster-storage-libvirt.app',
     'corenetwork.app',

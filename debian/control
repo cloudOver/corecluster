@@ -8,7 +8,7 @@ Homepage: http://cloudover.org/
 
 Package: corecluster
 Architecture: all
-Depends: corecluster-auth-db, corecluster-algorithm-id-uuid, corecluster-algorithm-node-default, corecluster-algorithm-storage-default, corecluster-storage-libvirt, corenetwork, corosync, libvirt-bin | libvirt-daemon-system, libvirt-bin | libvirt-clients, nfs-common, nginx-extras, ntpdate, openssh-server, python-dev, python-libvirt, python-pip, quagga, redis-server, qemu-utils, sqlite3, sudo, uwsgi, uwsgi-plugin-python
+Depends: corecluster-auth-db, corecluster-algorithm-id-uuid, corecluster-algorithm-node-fillup, corecluster-algorithm-storage-default, corecluster-storage-libvirt, corenetwork, corosync, libvirt-bin | libvirt-daemon-system, libvirt-bin | libvirt-clients, nfs-common, nginx-extras, ntpdate, openssh-server, python-dev, python-libvirt, python-pip, quagga, redis-server, qemu-utils, sqlite3, sudo, uwsgi, uwsgi-plugin-python
 Conflicts: overcluster-core
 Description: Main CoreCluster cloud component
  This package contains core components to run basic version of CoreCluster.
