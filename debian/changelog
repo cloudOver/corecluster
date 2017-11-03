@@ -1,4 +1,4 @@
-corecluster (17.11.01) stable; urgency=low
+corecluster (17.11.02) stable; urgency=low
 
   * Updated nginx configs and HTTP headers
   * Changed node select algorithm name
